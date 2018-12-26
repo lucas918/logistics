@@ -1,0 +1,38 @@
+.menu-list .menu-ul{
+    padding-left:28px;
+    margin:10px 0 5px;
+}
+.menu-list .title{
+    font-size:14px;
+    padding:0 5px;
+}
+.menu-list .sub-title{
+    font-size:12px;
+    padding:0 5px;
+}
+.menu-list .menu-icon{
+    width:20px;
+    text-align:center;
+    margin-right:2px;
+}
+.menu-list input{
+    margin-right:3px;
+}
+
+.modal-form{
+    text-align:left;
+    color:#838FA1;
+}
+.modal-form form{
+    background-color:#FFF;
+}
+.modal-form label{
+    font-weight:400;
+}
+.modal-form label input{
+    margin-right: 5px;
+}
+
+.table-middle tbody>tr>td{
+    vertical-align:middle;
+}
