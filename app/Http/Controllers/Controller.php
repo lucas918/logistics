@@ -1,16 +1,14 @@
 <?php
 namespace App\Http\Controllers;
 
-// use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
-// use Illuminate\Foundation\Validation\ValidatesRequests;
-// use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 
 class Controller extends BaseController
 {
 	// 构造请求数
-    public function __construct(Request $req){
+    public function __construct(Request $req)
+    {
         $this->request = $req;
     }
 
@@ -35,7 +33,7 @@ class Controller extends BaseController
      * @return  void
      */
     protected function password_verify($passwd, $hash)
-    {   
+    {
         return password_verify($passwd, $hash);
     }
 

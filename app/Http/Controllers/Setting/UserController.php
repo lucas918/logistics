@@ -16,9 +16,26 @@ class UserController extends Controller
     	$page = $this->request->input('page', 0);
     	$page < 1 && $page = 1;
 
+        $search = array(
+            'role_id' => $this->request->input('role_id', 0),
+            'keyword' => $this->request->input('keyword', '')
+        );
+
         // 当前角色id
         $user_info = \Session::get('user_info');
         $role_id = is_numeric($user_info['role_id']) ? intval($user_info['role_id']) : explode(',', $user_info['role_id']);
+
+        // 当前角色
+        $role_model = new RoleModel();
+        $role_data = $role_model->getRole(['pids'=>$role_id, 'status'=>1]);
+        $role_data_tree = $this->getRoleTree($role_data, 0);
+
+        if ($search['role_id'] == 0 && is_numeric($role_id)) {
+            $search['role_id'] = $role_id;
+        }
+        else if (!empty($search['role_id'])) {
+            $role_id = intval($search['role_id']);
+        }
 
         // 查看当前角色下的用户
         $user_role_model = new UserRoleModel;
@@ -30,7 +47,12 @@ class UserController extends Controller
         }
 
         $user_model = new UserModel;
-        $user_data = $user_model->getUser(['id'=>$user_ids], $page, $page_size);
+        $user_param = ['id'=>$user_ids];
+        if (!empty($search['keyword'])) {
+            $user_param['like']['username'] = $search['keyword'];
+        }
+
+        $user_data = $user_model->getUser($user_param, $page, $page_size);
 
         // 查询对应的角色id
         $user_role_model = new UserRoleModel;
@@ -44,20 +66,16 @@ class UserController extends Controller
             $user_data[$key]['role_id'] = $arr;
         }
 
-        $user_total = $user_model->count(['id'=>$user_ids]);
+        $user_total = $user_model->count($user_param);
 
         $paginator = new LengthAwarePaginator($user_data, $user_total, $page_size, $page, [
             'path' => Paginator::resolveCurrentPath()
         ]);
 
-        // 当前角色
-        $role_model = new RoleModel();
-        $role_data = $role_model->getRole(['pids'=>$role_id, 'status'=>1]);
-        $role_data_tree = $this->getRoleTree($role_data, 0);
-
         return view('setting/user', array(
             'user_info' => $user_data,
             'role_data_tree' => $role_data_tree,
+            'search' => $search,
         	'page_info' => $paginator
         ));
     }

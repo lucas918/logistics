@@ -17,10 +17,36 @@ class UserModel extends BaseModel
         !empty($data['email']) && $_db = $_db->where('email', $data['email']);
         !empty($data['status']) && $_db = $_db->where('status', $data['status']);
 
+        if (!empty($data['like'])) {
+            foreach ($data['like'] as $key => $val) {
+                $_db = $_db->where($key, 'like', "%{$val}%");
+            }
+        }
+
         if ($page > 0) {
             $_db = $_db->limit($page_size)->offset(($page-1) * $page_size);
         }
 
         return $this->toArray($_db->get());
+    }
+
+    // 获取总数
+    public function countUser($data)
+    {
+        $_db = $this->table();
+
+        !empty($data['id']) && $_db = (is_array($data['id'])) ? $_db->whereIn('id', $data['id']) : $_db->where('id', $data['id']);
+        !empty($data['phone']) && $_db = $_db->where('phone', $data['phone']);
+        !empty($data['username']) && $_db = $_db->where('username', $data['username']);
+        !empty($data['email']) && $_db = $_db->where('email', $data['email']);
+        !empty($data['status']) && $_db = $_db->where('status', $data['status']);
+
+        if (!empty($data['like'])) {
+            foreach ($data['like'] as $key => $val) {
+                $_db = $_db->where($key, 'like', "%{$val}%");
+            }
+        }
+
+        return $_db->count();
     }
 }

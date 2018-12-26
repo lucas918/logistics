@@ -10,51 +10,53 @@
                     <div class="widget-title  am-cf">用户列表</div>
                 </div>
                 <div class="widget-body am-fr">
-                    <div class="am-u-sm-12 am-u-md-3 am-u-lg-6">
-                        <div class="am-form-group">
-                            <div class="am-btn-toolbar">
-                                <div class="am-btn-group am-btn-group-xs">
-                                    <button type="button" class="am-btn am-btn-default am-btn-success modal-btn" data-method='add'><span class="am-icon-plus"></span> 新增</button>
-                                    <button type="button" class="am-btn am-btn-default am-btn-warning modal-btn" data-method='disable'><span class="am-icon-trash-o"></span> 禁用</button>
+                <?php
+                    // 角色列表
+                    function showRoleTree($role, $level=0)
+                    {
+                        $html = "";
+                        foreach ($role as $val) {
+                            $html .= "<option value='".$val['id']."'>";
+
+                            for($i=0; $i<$level; $i++) {
+                                $html .= "&nbsp;&nbsp;";
+                            }
+
+                            $html .= $val['title']."</option>";
+
+                            if (!empty($val['sub_menu'])) {
+                                $html .= showRoleTree($val['sub_menu'], $level+1);
+                            }
+                        }
+
+                        return $html;
+                    }
+                ?>
+                    <div class="row search-form">
+                        <div class="am-u-sm-12 am-u-md-3 am-u-lg-6">
+                            <div class="am-form-group">
+                                <div class="am-btn-toolbar">
+                                    <div class="am-btn-group am-btn-group-xs">
+                                        <button type="button" class="am-btn am-btn-default am-btn-success modal-btn" data-method='add'><span class="am-icon-plus"></span> 新增</button>
+                                        <!-- <button type="button" class="am-btn am-btn-default am-btn-warning modal-btn" data-method='disable'><span class="am-icon-trash-o"></span> 禁用</button> -->
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <?php
-                        // 角色列表
-                        function showRoleTree($role, $level=0)
-                        {
-                            $html = "";
-                            foreach ($role as $val) {
-                                $html .= "<option value='".$val['id']."'>";
-
-                                for($i=0; $i<$level; $i++) {
-                                    $html .= "&nbsp;&nbsp;";
-                                }
-
-                                $html .= $val['title']."</option>";
-
-                                if (!empty($val['sub_menu'])) {
-                                    $html .= showRoleTree($val['sub_menu'], $level+1);
-                                }
-                            }
-
-                            return $html;
-                        }
-                    ?>
-                    <div class="am-u-sm-12 am-u-md-5 am-u-lg-3">
-                        <div class="am-form-group tpl-table-list-select">
-                            <select data-am-selected="{btnSize: 'sm'}">
-                                <?php echo showRoleTree($role_data_tree, 0); ?>
-                            </select>
+                        <div class="am-u-sm-12 am-u-md-5 am-u-lg-3">
+                            <div class="am-form-group tpl-table-list-select">
+                                <select name="role_id" data-am-selected="{btnSize:'sm'}">
+                                    <?php echo showRoleTree($role_data_tree, 0); ?>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="am-u-sm-12 am-u-md-4 am-u-lg-3">
-                        <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-                            <input type="text" class="am-form-field ">
-                            <span class="am-input-group-btn">
-                                <button class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search" type="button"></button>
-                            </span>
+                        <div class="am-u-sm-12 am-u-md-4 am-u-lg-3">
+                            <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+                                <input type="text" name="keyword" class="am-form-field" value="<?php echo $search['keyword']; ?>" placeholder="搜索用户名">
+                                <span class="am-input-group-btn">
+                                    <button class="am-btn am-btn-default am-btn-success tpl-table-list-field am-icon-search" type="button"></button>
+                                </span>
+                            </div>
                         </div>
                     </div>
 
@@ -73,7 +75,7 @@
                             </thead>
                             <tbody>
                                 <?php if (empty($user_info)) { ?>
-                                <tr><td colspan="7">没有用户数据</td></tr>
+                                <tr><td colspan="7" style="text-align:center;color:red;">当前没有用户数据</td></tr>
                                 <?php } else {
                                     foreach ($user_info as $val) {
                                 ?>
@@ -115,7 +117,6 @@
 </div>
 
 <div class="am-modal am-modal-no-btn" tabindex="-1" id="dialog-modal">
-
     <div class="am-modal-dialog">
         <div class="am-modal-hd">
             <span class="modal-title">标题</span>
@@ -155,7 +156,7 @@
                                 <div class="am-form-group">
                                     <label for="passwd" class="am-u-sm-3 am-form-label">账号密码 <sup class="am-text-danger">*</sup></label>
                                     <div class="am-u-sm-9">
-                                        <input type="password" class="am-form-field tpl-form-no-bg" id='passwd' name="user_passwd" placeholder="账号密码" minlength="6" maxlength="24" required>
+                                        <input type="password" class="am-form-field tpl-form-no-bg" id='passwd' name="user_passwd" placeholder="账号密码" autocomplete="off" minlength="6" maxlength="24" required>
                                         <small>请输入6-24位密码</small>
                                     </div>
                                 </div>
@@ -163,7 +164,7 @@
                                 <div class="am-form-group">
                                     <label for="confirm-passwd" class="am-u-sm-3 am-form-label">确认密码 <sup class="am-text-danger">*</sup></label>
                                     <div class="am-u-sm-9">
-                                        <input type="password" class="am-form-field tpl-form-no-bg" id='confirm-passwd' name="user_passwd1" placeholder="账号密码" data-equal-to="#passwd" required>
+                                        <input type="password" class="am-form-field tpl-form-no-bg" id='confirm-passwd' name="user_passwd1" placeholder="账号密码" autocomplete="off" data-equal-to="#passwd" required>
                                         <small></small>
                                     </div>
                                 </div>
@@ -226,7 +227,7 @@
                                 <div class="am-form-group">
                                     <label for="passwd1" class="am-u-sm-3 am-form-label">账号密码</label>
                                     <div class="am-u-sm-9">
-                                        <input type="password" class="am-form-field tpl-form-no-bg" id='passwd1' name="user_passwd" placeholder="不更改密码则不填写">
+                                        <input type="password" class="am-form-field tpl-form-no-bg" id='passwd1' name="user_passwd" placeholder="不更改密码则不填写" autocomplete="off">
                                         <small>请输入6-24位密码</small>
                                     </div>
                                 </div>
@@ -234,7 +235,7 @@
                                 <div class="am-form-group">
                                     <label for="confirm-passwd1" class="am-u-sm-3 am-form-label">确认密码</label>
                                     <div class="am-u-sm-9">
-                                        <input type="password" class="am-form-field tpl-form-no-bg" id='confirm-passwd1' name="user_passwd1" placeholder="账号密码" data-equal-to="#passwd1">
+                                        <input type="password" class="am-form-field tpl-form-no-bg" id='confirm-passwd1' name="user_passwd1" placeholder="账号密码" autocomplete="off" data-equal-to="#passwd1">
                                         <small></small>
                                     </div>
                                 </div>
@@ -274,8 +275,6 @@
                             </fieldset>
                         </form>
                     </div>
-
-                    <div class="widget am-cf user-edit" style="display:none"></div>
                 </div>
             </div>
         </div>
@@ -285,80 +284,100 @@
 
 @section('javascript_run')
 <script type="text/javascript">
-    // modal click
-    $(document).on('click', '.modal-btn', function(e) {
-        var $target = $(e.target);
-
-        if ($(e.target).attr('data-method') == undefined) {
-            return;
-        }
-
-        var $form = $('#dialog-modal form');
-        $form.hide();
-
-        var method = $(e.target).attr('data-method');
-        var modal_title = 'Modal';
-        if (method == 'add') {
-            modal_title = '新增用户';
-
-            $form = $("#dialog-modal form.user-add");
-            $form.find('.am-form-group').removeClass('am-form-error').removeClass('am-form-success');
-            $form.find('.am-form-group input').removeClass('am-field-error').removeClass('am-field-valid').val('').siblings('small').html('');
-
-            if ($form.find('fieldset select option:selected').length > 0) {
-                $form.find('select option').prop('selected', false);
-                // 手动触发事件
-                $form.find('select').trigger('changed.selected.amui');
-            }
-        }
-        else {
-            modal_title = '编辑用户';
-
-            $form = $("#dialog-modal form.user-edit");
-            $form.find(".am-form-group input[type='text']").val('').siblings('small').html('');
-
-            var data_info = JSON.parse($(e.target).attr('data-info'));
-            if (typeof data_info.id != undefined) {
-                $form.find("input[name='id']").val(data_info.id);
-            }
-
-            if (typeof data_info.username != undefined) {
-                $form.find("input[name='user_name']").val(data_info.username);
-            }
-
-            if (typeof data_info.phone != undefined) {
-                $form.find("input[name='user_phone']").val(data_info.phone);
-            }
-
-            if (typeof data_info.email != undefined) {
-                $form.find("input[name='user_email']").val(data_info.email);
-            }
-
-            if (typeof data_info.role_id != undefined) {
-                $select = $form.find('select[name="role_id"]');
-                $.each(data_info.role_id, function(idx, val) {
-                    $select.find('option[value="'+val+'"]').prop('selected', true);
-                });
-
-                // 手动触发事件
-                $select.trigger('changed.selected.amui');
-            }
-
-            if (typeof data_info.address != undefined) {
-                $form.find("input[name='user_address']").val(data_info.address);
-            }
-
-            if (typeof data_info.status != undefined) {
-                $form.find("input[name='status'][value='"+data_info.status+"']").prop('checked', true);
-            }
-        }
-
-        $form.show();
-        $('#dialog-modal .am-modal-hd .modal-title').html(modal_title);
-        $('#dialog-modal').modal({width:700});
-    });
-
     $(function(){
+        // 搜索角色
+        <?php if (!empty($search['role_id'])) { ?>
+        $(".search-form select[name='role_id']").find("option[value='<?php echo $search['role_id']; ?>']").prop('selected', true);
+        // 手动触发事件
+        $(".search-form select[name='role_id']").trigger('changed.selected.amui');
+        <?php } ?>
+
+        // 角色
+        $(document).on('change', ".search-form select[name='role_id']", function() {
+            var uri = '/setting/user?role_id='+$(this).val()+'&keyword='+$(".search-form input[name='keyword']").val();
+            window.location.href = uri;
+        });
+
+        // 搜索按键
+        $(document).on('click', ".search-form button.am-icon-search", function() {
+            var uri = '/setting/user?role_id='+$(".search-form select[name='role_id']").val()+'&keyword='+$(".search-form input[name='keyword']").val();
+            window.location.href = uri;
+        });
+
+        // modal click
+        $(document).on('click', '.modal-btn', function(e) {
+            var $target = $(e.target);
+
+            if ($(e.target).attr('data-method') == undefined) {
+                return;
+            }
+
+            var $form = $('#dialog-modal form');
+            $form.hide();
+
+            var method = $(e.target).attr('data-method');
+            var modal_title = 'Modal';
+            if (method == 'add') {
+                modal_title = '新增用户';
+
+                $form = $("#dialog-modal form.user-add");
+                $form.find('.am-form-group').removeClass('am-form-error').removeClass('am-form-success');
+                $form.find('.am-form-group input').removeClass('am-field-error').removeClass('am-field-valid').val('').siblings('small').html('');
+
+                if ($form.find('fieldset select option:selected').length > 0) {
+                    $form.find('select option').prop('selected', false);
+                    // 手动触发事件
+                    $form.find('select').trigger('changed.selected.amui');
+                }
+            }
+            else {
+                modal_title = '编辑用户';
+
+                $form = $("#dialog-modal form.user-edit");
+                $form.find(".am-form-group input[type='text']").val('').siblings('small').html('');
+
+                var data_info = JSON.parse($(e.target).attr('data-info'));
+                if (typeof data_info.id != undefined) {
+                    $form.find("input[name='id']").val(data_info.id);
+                }
+
+                if (typeof data_info.username != undefined) {
+                    $form.find("input[name='user_name']").val(data_info.username);
+                }
+
+                if (typeof data_info.phone != undefined) {
+                    $form.find("input[name='user_phone']").val(data_info.phone);
+                }
+
+                if (typeof data_info.email != undefined) {
+                    $form.find("input[name='user_email']").val(data_info.email);
+                }
+
+                if (typeof data_info.role_id != undefined) {
+                    $select = $form.find('select[name="role_id"]');
+                    $.each(data_info.role_id, function(idx, val) {
+                        $select.find('option[value="'+val+'"]').prop('selected', true);
+                    });
+
+                    // 手动触发事件
+                    $select.trigger('changed.selected.amui');
+                }
+
+                if (typeof data_info.address != undefined) {
+                    $form.find("input[name='user_address']").val(data_info.address);
+                }
+
+                if (typeof data_info.status != undefined) {
+                    $form.find("input[name='status'][value='"+data_info.status+"']").prop('checked', true);
+                }
+            }
+
+            $form.show();
+            $('#dialog-modal .am-modal-hd .modal-title').html(modal_title);
+            $('#dialog-modal').modal({width:700});
+        });
+
+        // 表单提交
         $("form").submit(function(e) {
             var $target = $(e.target);
             if ($target.data('target') == undefined) {

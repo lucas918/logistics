@@ -19,7 +19,6 @@ class LoginController extends Controller
     | to conveniently provide its functionality to your applications.
     |
     */
-
     // 登录页
     public function index()
     {
@@ -51,7 +50,7 @@ class LoginController extends Controller
         }
 
         $user_data = $user_data[0];
-        if ($user_data['password'] != $passwd) {
+        if (!$this->password_verify($passwd, $user_data['password'])) {
             return redirect()->route('login')->withErrors(['error'=>'密码有误']);
         }
         else if ($user_data['status'] != 1) {

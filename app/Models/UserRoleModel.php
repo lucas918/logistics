@@ -32,15 +32,4 @@ class UserRoleModel extends BaseModel
 
         return $this->toArray($_db->get());
     }
-
-    // 获取总数
-    public function countUser($data)
-    {
-        $_db = $this->table();
-
-        !empty($data['id']) && $_db = $_db->where('id', $data['id']);
-        !empty($data['user_id']) && $_db = $_db->where('user_id', $data['user_id']);
-        !empty($data['role_id']) && $_db = $_db->where('role_id', $data['role_id']);
-        return $_db->count();
-    }
 }
