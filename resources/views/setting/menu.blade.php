@@ -10,7 +10,8 @@
         <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
             <div class="widget am-cf">
                 <div class="widget-head am-cf">
-                    <div class="widget-title am-cf">菜单栏</div>
+                    <div class="widget-title am-fl">菜单栏</div>
+                    <div class="widget-function am-fr"></div>
                 </div>
                 <div class="widget-body am-fr menu-list">
                 <?php

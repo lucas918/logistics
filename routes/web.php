@@ -22,6 +22,16 @@ Route::group(['namespace' => 'Auth'], function() {
     // Route::post('/user', 'UserController@index');
 });
 
+// 常规页
+Route::group(['prefix'=>'general', 'middleware'=>'auth', 'namespace' => 'General'], function() {
+    Route::get('/info', ['as'=>'info', 'uses'=>'InfoController@index']);
+    Route::post('/info/passwd', ['as'=>'info.passwd', 'uses'=>'InfoController@passwd']);
+
+    Route::get('/driver', ['as'=>'driver', 'uses'=>'DriverController@index']);
+
+    Route::get('/car', ['as'=>'car', 'uses'=>'CarController@index']);
+});
+
 // 系统设置页
 Route::group(['prefix'=>'setting', 'middleware'=>'auth', 'namespace' => 'Setting'], function() {
     Route::get('/role', ['as'=>'role', 'uses'=>'RoleController@index']);

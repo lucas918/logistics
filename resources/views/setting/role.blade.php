@@ -7,7 +7,8 @@
         <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
             <div class="widget am-cf">
                 <div class="widget-head am-cf">
-                    <div class="widget-title  am-cf">角色列表</div>
+                    <div class="widget-title am-fl">角色列表</div>
+                    <div class="widget-function am-fr"></div>
                 </div>
                 <div class="widget-body am-fr">
                     <div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
@@ -338,7 +339,7 @@
                 }
             }
 
-            $('#dialog-modal').modal({width:700});
+            $('#dialog-modal').modal({width:700, closeViaDimmer:false});
         }
     });
 

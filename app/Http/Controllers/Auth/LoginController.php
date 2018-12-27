@@ -43,7 +43,7 @@ class LoginController extends Controller
             return redirect()->route('login')->withErrors(['error'=>'账号或密码不能为空']);
         }
 
-        $user_model = new UserModel();
+        $user_model = new UserModel;
         $user_data = $user_model->getUser(['phone'=>$phone]);
         if (empty($user_data) || $user_data[0]['status'] != 1) {
             return redirect()->route('login')->withErrors(['error'=>'账户不存在，请联系管理员！']);
@@ -58,7 +58,7 @@ class LoginController extends Controller
         }
 
         // 用户关联角色
-        $user_role_model = new UserRoleModel();
+        $user_role_model = new UserRoleModel;
         $user_role = $user_role_model->getAll(['user_id'=>$user_data['id']]);
         if (empty($user_role)) {
             return redirect()->route('login')->withErrors(['error'=>'账号未分配权限，请联系工作人员']);
@@ -70,8 +70,7 @@ class LoginController extends Controller
         }
 
         // 角色信息
-        $role_model = new RoleModel();
-        // $role_list = is_numeric($user_data['role_list']) ? intval($user_data['role_list']) : explode(',', $user_data['role_list']);
+        $role_model = new RoleModel;
         $role_data = $role_model->getRole(['fields'=>['id','title','menu_list'],'id'=>$role_list, 'status'=>1]);
         if (empty($role_data)) {
             return redirect()->route('login')->withErrors(['error'=>'账号角色异常，请联系工作人员!']);
@@ -92,8 +91,8 @@ class LoginController extends Controller
         }
 
         // 菜单栏
-        $menu_model = new MenuModel();
-        $menu_param = array('status'=>1, 'sub_page'=>0, 'order'=>['parent_id', 'id']);
+        $menu_model = new MenuModel;
+        $menu_param = array('status'=>1, 'sub_page'=>0, 'order'=>['parent_id', 'sort']);
         if ($menu_id != array('all')) {
             $menu_param['id'] = $menu_id;
         }

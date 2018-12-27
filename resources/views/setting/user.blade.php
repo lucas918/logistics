@@ -7,7 +7,8 @@
         <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
             <div class="widget am-cf">
                 <div class="widget-head am-cf">
-                    <div class="widget-title  am-cf">用户列表</div>
+                    <div class="widget-title am-fl">用户列表</div>
+                    <div class="widget-function am-fr"></div>
                 </div>
                 <div class="widget-body am-fr">
                 <?php
@@ -374,7 +375,7 @@
 
             $form.show();
             $('#dialog-modal .am-modal-hd .modal-title').html(modal_title);
-            $('#dialog-modal').modal({width:700});
+            $('#dialog-modal').modal({width:700, closeViaDimmer:false});
         });
 
         // 表单提交

@@ -35,7 +35,7 @@ class RoleController extends Controller
         }
 
         // 菜单栏
-        $menu_model = new MenuModel();
+        $menu_model = new MenuModel;
         $menu_param = array('status'=>1, 'order'=>['parent_id', 'id']);
         if ($menu_id != array('all')) {
             $menu_param['id'] = $menu_id;
@@ -49,7 +49,7 @@ class RoleController extends Controller
         $role_id = is_numeric($user_info['role_id']) ? intval($user_info['role_id']) : explode(',', $user_info['role_id']);
 
         // 获取角色信息
-        $role_model = new RoleModel();
+        $role_model = new RoleModel;
         $role_data = $role_model->getRole(['pids'=>$role_id, 'order'=>['parent_id','created']], $page, $page_size);
 
         $role_total = $role_model->countRole(['pids'=>$role_id]);
@@ -80,7 +80,7 @@ class RoleController extends Controller
             return;
         }
 
-        $role_model = new RoleModel();
+        $role_model = new RoleModel;
         // 查看角色信息是否存在
         $role_data = $role_model->getRole(['id'=>$params['role_id'], 'status'=>1]);
         if (empty($role_data)) {
@@ -113,7 +113,7 @@ class RoleController extends Controller
             return;
         }
 
-        $role_model = new RoleModel();
+        $role_model = new RoleModel;
 
         // 查看当前角色是否可操作
         $role_data = $role_model->getRole(['id'=>$params['id']]);

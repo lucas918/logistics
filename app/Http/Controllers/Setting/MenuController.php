@@ -27,7 +27,7 @@ class MenuController extends Controller
         }
 
         // 菜单栏
-        $menu_model = new MenuModel();
+        $menu_model = new MenuModel;
         $menu_param = array('status'=>1, 'order'=>['parent_id', 'id']);
         if ($menu_id != array('all')) {
             $menu_param['id'] = $menu_id;

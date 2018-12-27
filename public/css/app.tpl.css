@@ -33,13 +33,12 @@ header {
   margin-bottom: 0px;
   float: left;
   color: #cfcfcf;
-  margin-left: -20px;
+  margin-left: -10px;
   margin-right: 0;
   border: 0;
   border-radius: 0;
-  padding: 0px 22px;
+  padding: 0px 12px;
   font-size: 22px;
-  line-height: 55px;
 }
 .tpl-header-switch-button:hover {
   outline: none;
@@ -265,7 +264,7 @@ ul.tpl-dropdown-content .tpl-dropdown-menu-messages-item .menu-messages-content 
 .left-sidebar {
   transition: all 0.4s ease-in-out;
   width: 240px;
-  min-height: 100%;
+  min-height: calc(100% - 57px);
   padding-top: 57px;
   position: absolute;
   z-index: 1104;
@@ -1201,12 +1200,10 @@ ul.tpl-dropdown-content .tpl-dropdown-menu-messages-item .menu-messages-content 
 }
 .theme-white .tpl-header-logo {
   background: #fff;
-  border-bottom: 1px solid #eee;
+  /*border-bottom: 1px solid #eee;*/
 }
 .theme-white .tpl-header-switch-button {
   background: #fff;
-  border-right: 1px solid #eee;
-  border-left: 1px solid #eee;
 }
 .theme-white .tpl-header-switch-button:hover {
   background: #fff;
@@ -1810,7 +1807,6 @@ ul.tpl-dropdown-content .tpl-dropdown-menu-messages-item .menu-messages-content 
 }
 .theme-black .tpl-header-switch-button {
   background: #2f3638;
-  border-right: 1px solid #282d2f;
 }
 .theme-black .tpl-header-switch-button:hover {
   background: #282d2f;
@@ -1907,6 +1903,44 @@ ul.tpl-dropdown-content .tpl-dropdown-menu-messages-item .menu-messages-content 
     top: 112px;
     right: 0;
   }
+}
+
+.am-topbar-inverse {
+    background: #fff;
+    border-color: #e9ecf3;
+}
+.am-topbar {
+    min-height: 55px;
+    line-height: 55px;
+    font-size: 1.4rem;
+    margin-bottom: 0;
+}
+
+ul.tpl-dropdown-info{
+  min-width: unset;
+}
+ul.tpl-dropdown-info > li > a{
+    line-height: 20px;
+}
+
+.tpl-header-list-user-nick {
+    color: #7FB0DA;
+}
+
+
+.tpl-form-list .am-form-group{
+    overflow: hidden;
+    font-size: 14px;
+    line-height: 14px;
+}
+
+.tpl-form-list .am-form-label{
+    text-align: right;
+}
+.tpl-form-list .am-form-label, .tpl-form-list .tpl-form-field{
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: .6em;
 }
 
 /** 分页 **/

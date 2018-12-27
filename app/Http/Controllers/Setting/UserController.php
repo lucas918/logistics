@@ -26,7 +26,7 @@ class UserController extends Controller
         $role_id = is_numeric($user_info['role_id']) ? intval($user_info['role_id']) : explode(',', $user_info['role_id']);
 
         // 当前角色
-        $role_model = new RoleModel();
+        $role_model = new RoleModel;
         $role_data = $role_model->getRole(['pids'=>$role_id, 'status'=>1]);
         $role_data_tree = $this->getRoleTree($role_data, 0);
 

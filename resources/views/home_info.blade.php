@@ -7,12 +7,12 @@
     <div class="row am-cf">
         <div class="am-u-sm-12 am-u-md-12 am-u-lg-4">
             <div class="widget am-cf">
-                <div class="widget-head am-cf">
+                <!-- <div class="widget-head am-cf">
                     <div class="widget-title am-fl">月度财务收支计划</div>
                     <div class="widget-function am-fr">
                         <a href="javascript:;" class="am-icon-cog"></a>
                     </div>
-                </div>
+                </div> -->
                 <div class="widget-body am-fr">
                     <div class="am-fl">
                         <div class="widget-fluctuation-period-text">

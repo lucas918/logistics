@@ -17,29 +17,20 @@
 <body class="theme-white">
     <div class="am-g tpl-g">
         <!-- 头部 -->
-        <header>
-            <!-- logo -->
+        <header class="am-topbar am-topbar-inverse">
             <div class="am-fl tpl-header-logo">
-                <a href="javascript:;">Manager Site<!-- <img src="img/logo.png" alt=""> --></a>
+                <a href="javascript:;"><img src="/img/logo.png" alt="Logo"></a>
             </div>
-            <!-- 右侧内容 -->
+
             <div class="tpl-header-fluid">
-                <!-- 侧边切换 -->
-                <div class="am-fl tpl-header-switch-button am-icon-list">
-                    <span></span>
-                </div>
-                <!-- 其它功能-->
+                <div class="am-fl tpl-header-switch-button am-icon-list"></div>
+
                 <div class="am-fr tpl-header-navbar">
                     <ul>
-                        <!-- 欢迎语 -->
-                        <li class="am-text-sm tpl-header-navbar-welcome">
-                            <a href="javascript:;">欢迎你, <span>Manageer</span> </a>
-                        </li>
-
                         <!-- 新邮件 -->
                         <li class="am-dropdown tpl-dropdown" data-am-dropdown>
                             <a href="javascript:;" class="am-dropdown-toggle tpl-dropdown-toggle" data-am-dropdown-toggle>
-                                <i class="am-icon-envelope"></i>
+                                <i class="am-icon-comment-o"></i>
                                 <span class="am-badge am-badge-success am-round item-feed-badge">4</span>
                             </a>
                             <!-- 弹出列表 -->
@@ -92,7 +83,7 @@
                         <!-- 新提示 -->
                         <li class="am-dropdown" data-am-dropdown>
                             <a href="javascript:;" class="am-dropdown-toggle" data-am-dropdown-toggle>
-                                <i class="am-icon-bell"></i>
+                                <i class="am-icon-bell-o"></i>
                                 <span class="am-badge am-badge-warning am-round item-feed-badge">5</span>
                             </a>
 
@@ -141,30 +132,33 @@
                             </ul>
                         </li>
 
-                        <!-- 退出 -->
-                        <li class="am-text-sm">
-                            <a href="/logout">
-                                <span class="am-icon-sign-out"></span> 退出
+                        <li class="am-dropdown" data-am-dropdown>
+                            <a href="javascript:;" class="am-dropdown-toggle" data-am-dropdown-toggle>
+                                <span class="tpl-header-list-user-nick">Manage</span>
+                                <i class="am-icon-caret-down"></i>
                             </a>
+                            <ul class="am-dropdown-content tpl-dropdown-info">
+                                <li class="tpl-dropdown-menu-notifications">
+                                    <a href="javascript:;" class="tpl-dropdown-menu-notifications-item am-cf">
+                                        <span class="am-icon-cog"></span> 个人信息
+                                    </a>
+                                </li>
+                                <li class="tpl-dropdown-menu-notifications">
+                                    <a href="/logout" class="tpl-dropdown-menu-notifications-item am-cf">
+                                        <span class="am-icon-sign-out"></span> 安全退出
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </div>
             </div>
         </header>
+
         <!-- 侧边导航栏 -->
         <div class="left-sidebar">
             <!-- 用户信息 -->
             <div class="tpl-sidebar-user-panel">
-                <div class="tpl-user-panel-slide-toggleable">
-                    <div class="tpl-user-panel-profile-picture">
-                        <img src="/img/user04.png" alt="avatar image">
-                    </div>
-                    <span class="user-panel-logged-in-text">
-                        <i class="am-icon-circle-o am-text-success tpl-user-panel-status-icon"></i>
-                        小张
-                    </span>
-                    <a href="javascript:;" class="tpl-user-panel-action-link"> <span class="am-icon-pencil"></span> 账号设置</a>
-                </div>
             </div>
 
             <!-- 菜单 -->
@@ -187,50 +181,6 @@
                 }
             }
             ?>
-
-                <!-- <li class="sidebar-nav-link">
-                    <a href="javascript:;" data-uri='/home' class="active">
-                        <i class="am-icon-home sidebar-nav-link-logo"></i> 首页
-                    </a>
-                </li>
-                <li class="sidebar-nav-heading">Logistics <span class="sidebar-nav-heading-info"> 物流</span></li>
-                <li class="sidebar-nav-link">
-                    <a href="javascript:;" data-uri='/home'>
-                        <i class="am-icon-users sidebar-nav-link-logo"></i> 司机列表
-                    </a>
-                </li>
-                <li class="sidebar-nav-link">
-                    <a href="javascript:;" data-uri='/home'>
-                        <i class="am-icon-bus sidebar-nav-link-logo"></i> 车辆列表
-                    </a>
-                </li>
-                <li class="sidebar-nav-link">
-                    <a href="javascript:;" data-uri='/home'>
-                        <i class="am-icon-map-marker sidebar-nav-link-logo"></i> 车辆动态
-                    </a>
-                </li>
-                <li class="sidebar-nav-link">
-                    <a href="javascript:;" data-uri='/home'>
-                        <i class="am-icon-user-secret sidebar-nav-link-logo"></i> 账号信息
-                    </a>
-                </li>
-
-                <li class="sidebar-nav-heading">Setting<span class="sidebar-nav-heading-info"> 系统设置</span></li>
-                <li class="sidebar-nav-link">
-                    <a href="javascript:;" data-uri='/setting/role'>
-                        <i class="am-icon-medium sidebar-nav-link-logo"></i> 角色
-                    </a>
-                </li>
-                <li class="sidebar-nav-link">
-                    <a href="javascript:;" data-uri='/setting/menu'>
-                        <i class="am-icon-navicon sidebar-nav-link-logo"></i> 菜单
-                    </a>
-                </li>
-                <li class="sidebar-nav-link">
-                    <a href="javascript:;" data-uri='/setting/user'>
-                        <i class="am-icon-user sidebar-nav-link-logo"></i> 管理员
-                    </a>
-                </li> -->
             </ul>
         </div>
 
@@ -240,8 +190,6 @@
         </div>
     </div>
     <script type="text/javascript" src="{{ asset('js/amazeui.min.js') }}"></script>
-    <!-- <script type="text/javascript" src="{{ asset('js/amazeui.datatables.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/dataTables.responsive.min.js') }}"></script> -->
     <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
 
     <script type="text/javascript">
