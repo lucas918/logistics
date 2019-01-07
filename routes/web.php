@@ -25,11 +25,16 @@ Route::group(['namespace' => 'Auth'], function() {
 // 常规页
 Route::group(['prefix'=>'general', 'middleware'=>'auth', 'namespace' => 'General'], function() {
     Route::get('/info', ['as'=>'info', 'uses'=>'InfoController@index']);
+    Route::post('/info/update', ['as'=>'info.update', 'uses'=>'InfoController@update']);
     Route::post('/info/passwd', ['as'=>'info.passwd', 'uses'=>'InfoController@passwd']);
 
-    Route::get('/driver', ['as'=>'driver', 'uses'=>'DriverController@index']);
-
     Route::get('/car', ['as'=>'car', 'uses'=>'CarController@index']);
+    Route::post('/car/add', ['as'=>'car.add', 'uses'=>'CarController@add']);
+    Route::post('/car/update', ['as'=>'car.update', 'uses'=>'CarController@update']);
+
+    Route::get('/driver', ['as'=>'driver', 'uses'=>'DriverController@index']);
+    Route::post('/driver/add', ['as'=>'driver.add', 'uses'=>'DriverController@add']);
+    Route::post('/driver/update', ['as'=>'driver.update', 'uses'=>'DriverController@update']);
 });
 
 // 系统设置页

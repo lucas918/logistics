@@ -21,7 +21,7 @@
                         if ($level > 1) {
                             $ul_class = "menu-ul ";
                         }
-                        if (!empty($menu[0]['sub_page'])) {
+                        if ($menu[0]['type'] != 1) {
                             $ul_class .= "am-u-sm-12";
                         }
 
@@ -29,7 +29,7 @@
 
                         foreach ($menu as $key => $val) {
                             $li_class = "";
-                            if ($val['sub_page'] == 1) {
+                            if ($val['type'] != 1) {
                                 $li_class .= "am-u-sm-3 ";
                                 
                                 if ($key == count($menu)-1) {

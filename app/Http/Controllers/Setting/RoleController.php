@@ -61,6 +61,8 @@ class RoleController extends Controller
         $paginator = new LengthAwarePaginator($role_data, $role_total, $page_size, $page, [
             'path' => Paginator::resolveCurrentPath()
         ]);
+        // print_r($menu_list);
+        // exit;
 
         return view('setting/role', array(
             'is_privilege' => $is_privilege,

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Setting;
 use App\Http\Controllers\Controller;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
+
 use App\Models\RoleModel;
 use App\Models\UserModel;
 use App\Models\UserRoleModel;
@@ -12,9 +13,9 @@ class UserController extends Controller
 {
     public function index()
     {
-    	$page_size = 10;
-    	$page = $this->request->input('page', 0);
-    	$page < 1 && $page = 1;
+        $page_size = 10;
+        $page = $this->request->input('page', 0);
+        $page < 1 && $page = 1;
 
         $search = array(
             'role_id' => $this->request->input('role_id', 0),
@@ -57,13 +58,13 @@ class UserController extends Controller
         // 查询对应的角色id
         $user_role_model = new UserRoleModel;
         foreach ($user_data as $key => $val) {
-            $rows = $user_role_model->getAll(['fields'=>['id','role_id'], 'user_id'=>$val['id']]);
+            $rows = $user_role_model->getJoinRole(['fields'=>['t0.*','t1.title'], 'user_id'=>$val['id']]);
             $arr = array();
             foreach ($rows as $v) {
-                $arr[] = $v['role_id'];
+                $arr[$v['role_id']] = $v['title'];
             }
 
-            $user_data[$key]['role_id'] = $arr;
+            $user_data[$key]['role_info'] = $arr;
         }
 
         $user_total = $user_model->count($user_param);
@@ -76,7 +77,7 @@ class UserController extends Controller
             'user_info' => $user_data,
             'role_data_tree' => $role_data_tree,
             'search' => $search,
-        	'page_info' => $paginator
+            'page_info' => $paginator
         ));
     }
 
@@ -135,6 +136,7 @@ class UserController extends Controller
             'phone' => $params['user_phone'],
             'email' => empty($params['user_email']) ? '' : $params['user_email'],
             'password' => $this->passwd_encrypt($params['user_passwd']),
+            'sex' => $params['sex'],
             'address' => isset($params['address']) ? trim($params['address']) : '',
         );
 
@@ -223,13 +225,19 @@ class UserController extends Controller
             $update_data['phone'] = $params['user_phone'];
         }
         if (!empty($params['user_passwd'])) {
-            $update_data['passwd'] = $params['user_passwd'];
+            $update_data['password'] = $params['user_passwd'];
         }
         if ($params['user_name'] != $user_data['username']) {
             $update_data['username'] = $params['user_name'];
         }
-        if ($params['user_email'] != $user_data['email']) {
+        if (!empty($params['user_email']) && $params['user_email'] != $user_data['email']) {
             $update_data['email'] = $params['user_email'];
+        }
+        else if (empty($params['user_email']) && !empty($user_data['email'])) {
+            $update_data['email'] = '';
+        }
+        if ($params['sex'] != $user_data['sex']) {
+            $update_data['sex'] = $params['sex'];
         }
         if ($params['status'] != $user_data['status']) {
             $update_data['status'] = $params['status'];

@@ -58,7 +58,7 @@ class Controller extends BaseController
                 'icon' => $val['icon'],
                 'uri' => $val['uri'],
                 'parent_id' => $val['parent_id'],
-                'sub_page' => $val['sub_page'],
+                'type' => $val['type'],
                 'sub_menu' => $val['sub_menu']
             );
         }

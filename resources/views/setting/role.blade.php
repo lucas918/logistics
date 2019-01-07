@@ -10,7 +10,7 @@
                     <div class="widget-title am-fl">角色列表</div>
                     <div class="widget-function am-fr"></div>
                 </div>
-                <div class="widget-body am-fr">
+                <div class="widget-body">
                     <div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
                         <div class="am-form-group">
                             <div class="am-btn-toolbar">
@@ -23,15 +23,15 @@
                     </div>
                     <div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
                         <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-                            <input type="text" class="am-form-field ">
+                            <!-- <input type="text" class="am-form-field ">
                             <span class="am-input-group-btn">
                                 <button class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search" type="button"></button>
-                            </span>
+                            </span> -->
                         </div>
                     </div>
 
                     <div class="am-u-sm-12">
-                        <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black " id="example-r">
+                        <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black">
                             <thead>
                                 <tr>
                                     <th><input type="checkbox"></th>
@@ -85,7 +85,7 @@
         if ($level > 1) {
             $ul_class = "menu-ul ";
         }
-        if (!empty($menu[0]['sub_page'])) {
+        if ($menu[0]['type'] != 1) {
             $ul_class .= "am-u-sm-12";
         }
 
@@ -97,8 +97,8 @@
 
         foreach ($menu as $key => $val) {
             $li_class = "";
-            if ($val['sub_page'] == 1) {
-                $li_class .= "am-u-sm-3 ";
+            if ($val['type'] != 1) {
+                $li_class .= "am-u-sm-4 ";
                 
                 if ($key == count($menu)-1) {
                     $li_class .= "am-u-end";

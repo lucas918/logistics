@@ -92,7 +92,7 @@ class LoginController extends Controller
 
         // 菜单栏
         $menu_model = new MenuModel;
-        $menu_param = array('status'=>1, 'sub_page'=>0, 'order'=>['parent_id', 'sort']);
+        $menu_param = array('status'=>1, 'type'=>1, 'order'=>['parent_id', 'sort']);
         if ($menu_id != array('all')) {
             $menu_param['id'] = $menu_id;
         }

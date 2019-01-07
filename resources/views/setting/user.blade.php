@@ -8,7 +8,7 @@
             <div class="widget am-cf">
                 <div class="widget-head am-cf">
                     <div class="widget-title am-fl">用户列表</div>
-                    <div class="widget-function am-fr"></div>
+                    <div class="widget-function"></div>
                 </div>
                 <div class="widget-body am-fr">
                 <?php
@@ -33,31 +33,30 @@
                         return $html;
                     }
                 ?>
-                    <div class="row search-form">
-                        <div class="am-u-sm-12 am-u-md-3 am-u-lg-6">
-                            <div class="am-form-group">
-                                <div class="am-btn-toolbar">
-                                    <div class="am-btn-group am-btn-group-xs">
-                                        <button type="button" class="am-btn am-btn-default am-btn-success modal-btn" data-method='add'><span class="am-icon-plus"></span> 新增</button>
-                                        <!-- <button type="button" class="am-btn am-btn-default am-btn-warning modal-btn" data-method='disable'><span class="am-icon-trash-o"></span> 禁用</button> -->
-                                    </div>
+                    <div class="am-u-sm-12 am-u-md-3 am-u-lg-6">
+                        <div class="am-form-group">
+                            <div class="am-btn-toolbar">
+                                <div class="am-btn-group-xs">
+                                    <button type="button" class="am-btn am-btn-default am-btn-success modal-btn" data-method='add'><span class="am-icon-plus"></span> 新增</button>
+                                    <!-- <button type="button" class="am-btn am-btn-default am-btn-secondary modal-btn" data-method='edit'><span class="am-icon-pencil"></span> 编辑</button>
+                                    <button type="button" class="am-btn am-btn-default am-btn-warning modal-btn" data-method='disable'><span class="am-icon-trash-o"></span> 禁用</button> -->
                                 </div>
                             </div>
                         </div>
-                        <div class="am-u-sm-12 am-u-md-5 am-u-lg-3">
-                            <div class="am-form-group tpl-table-list-select">
-                                <select name="role_id" data-am-selected="{btnSize:'sm'}">
-                                    <?php echo showRoleTree($role_data_tree, 0); ?>
-                                </select>
-                            </div>
+                    </div>
+                    <div class="am-u-sm-12 am-u-md-5 am-u-lg-3">
+                        <div class="am-form-group tpl-table-list-select">
+                            <select name="role_id" data-am-selected="{btnSize:'sm'}">
+                                <?php echo showRoleTree($role_data_tree, 0); ?>
+                            </select>
                         </div>
-                        <div class="am-u-sm-12 am-u-md-4 am-u-lg-3">
-                            <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-                                <input type="text" name="keyword" class="am-form-field" value="<?php echo $search['keyword']; ?>" placeholder="搜索用户名">
-                                <span class="am-input-group-btn">
-                                    <button class="am-btn am-btn-default am-btn-success tpl-table-list-field am-icon-search" type="button"></button>
-                                </span>
-                            </div>
+                    </div>
+                    <div class="am-u-sm-12 am-u-md-4 am-u-lg-3">
+                        <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+                            <input type="text" name="keyword" class="am-form-field" value="<?php echo $search['keyword']; ?>" placeholder="搜索用户名">
+                            <span class="am-input-group-btn">
+                                <button class="am-btn am-btn-default am-btn-success tpl-table-list-field am-icon-search" type="button"></button>
+                            </span>
                         </div>
                     </div>
 
@@ -69,6 +68,7 @@
                                     <th>ID</th>
                                     <th>用户名称</th>
                                     <th>基本信息</th>
+                                    <th>角色信息</th>
                                     <th>创建时间</th>
                                     <th>状态</th>
                                     <th>操作</th>
@@ -89,11 +89,12 @@
                                         <br/>
                                         <i>邮箱：<?php echo empty($val['email']) ? '-' : $val['email']; ?></i>
                                     </td>
+                                    <td><?php echo implode(',', $val['role_info']); ?></td>
                                     <td><?php echo substr($val['created'], 0, 10); ?></td>
                                     <td><?php echo $val['status'] == 1 ? '启用' : '禁用'; ?></td>
                                     <td>
                                         <div class="tpl-table-black-operation">
-                                            <a href="javascript:;" class="modal-btn" data-method='edit' data-info='<?php echo json_encode(['id'=>$val['id'],'username'=>$val['username'],'phone'=>$val['phone'],'email'=>$val['email'],'address'=>$val['address'],'status'=>$val['status'],'role_id'=>$val['role_id']]); ?>'>
+                                            <a href="javascript:;" class="modal-btn" data-method='edit' data-info='<?php echo json_encode(['id'=>$val['id'],'username'=>$val['username'],'phone'=>$val['phone'],'email'=>$val['email'],'address'=>$val['address'],'sex'=>$val['sex'],'status'=>$val['status'],'role_id'=>array_keys($val['role_info'])]); ?>'>
                                                 <i class="am-icon-pencil"></i> 编辑
                                             </a>
                                         </div>
@@ -137,7 +138,6 @@
                                         <small></small>
                                     </div>
                                 </div>
-
                                 <div class="am-form-group">
                                     <label for="user-phone" class="am-u-sm-3 am-form-label">手机号码 <sup class="am-text-danger">*</sup></label>
                                     <div class="am-u-sm-9">
@@ -145,7 +145,6 @@
                                         <small>手机号码为必填</small>
                                     </div>
                                 </div>
-
                                 <div class="am-form-group">
                                     <label for="user-email" class="am-u-sm-3 am-form-label">邮箱</label>
                                     <div class="am-u-sm-9">
@@ -153,7 +152,6 @@
                                         <small></small>
                                     </div>
                                 </div>
-
                                 <div class="am-form-group">
                                     <label for="passwd" class="am-u-sm-3 am-form-label">账号密码 <sup class="am-text-danger">*</sup></label>
                                     <div class="am-u-sm-9">
@@ -161,7 +159,6 @@
                                         <small>请输入6-24位密码</small>
                                     </div>
                                 </div>
-
                                 <div class="am-form-group">
                                     <label for="confirm-passwd" class="am-u-sm-3 am-form-label">确认密码 <sup class="am-text-danger">*</sup></label>
                                     <div class="am-u-sm-9">
@@ -169,7 +166,6 @@
                                         <small></small>
                                     </div>
                                 </div>
-
                                 <div class="am-form-group">
                                     <label class="am-u-sm-3 am-form-label">角色 <sup class="am-text-danger">*</sup></label>
                                     <div class="am-u-sm-9">
@@ -179,7 +175,14 @@
                                         <small></small>
                                     </div>
                                 </div>
-
+                                <div class="am-form-group">
+                                    <label class="am-u-sm-3 am-form-label">性别 <sup class="am-text-danger">*</sup></label>
+                                    <div class="am-u-sm-9">
+                                        <label class="am-radio-inline"><input type="radio" name="sex" value="1" data-am-ucheck required> 男</label>
+                                        <label class="am-radio-inline"><input type="radio" name="sex" value="2" data-am-ucheck required> 女</label>
+                                        <small></small>
+                                    </div>
+                                </div>
                                 <div class="am-form-group">
                                     <label for="user-address" class="am-u-sm-3 am-form-label">地址</label>
                                     <div class="am-u-sm-9">
@@ -187,7 +190,6 @@
                                         <small></small>
                                     </div>
                                 </div>
-
                                 <div class="am-form-group">
                                     <div class="am-text-default form-info" style="text-align:center;"></div>
                                     <div class="am-u-sm-7 am-u-sm-push-5">
@@ -248,6 +250,14 @@
                                         <?php echo showRoleTree($role_data_tree, 0); ?>
                                         </select>
                                         <small></small>
+                                    </div>
+                                </div>
+
+                                <div class="am-form-group">
+                                    <label class="am-u-sm-3 am-form-label">性别 <sup class="am-text-danger">*</sup></label>
+                                    <div class="am-u-sm-9">
+                                        <label class="am-radio-inline"><input type="radio" name="sex" value="1" required> 男</label>
+                                        <label class="am-radio-inline"><input type="radio" name="sex" value="2" > 女</label>
                                     </div>
                                 </div>
 
@@ -323,7 +333,8 @@
 
                 $form = $("#dialog-modal form.user-add");
                 $form.find('.am-form-group').removeClass('am-form-error').removeClass('am-form-success');
-                $form.find('.am-form-group input').removeClass('am-field-error').removeClass('am-field-valid').val('').siblings('small').html('');
+                $form.find(".am-form-group input[type='text']").val('').removeClass('am-field-error').removeClass('am-field-valid').siblings('small').html('');
+                $form.find(".am-form-group input[type='radio']").prop('checked', false).removeClass('am-field-valid');
 
                 if ($form.find('fieldset select option:selected').length > 0) {
                     $form.find('select option').prop('selected', false);
@@ -336,6 +347,7 @@
 
                 $form = $("#dialog-modal form.user-edit");
                 $form.find(".am-form-group input[type='text']").val('').siblings('small').html('');
+                $form.find(".am-form-group input[type='radio']").prop('checked', false).removeClass('am-field-valid');
 
                 var data_info = JSON.parse($(e.target).attr('data-info'));
                 if (typeof data_info.id != undefined) {
@@ -366,6 +378,10 @@
 
                 if (typeof data_info.address != undefined) {
                     $form.find("input[name='user_address']").val(data_info.address);
+                }
+
+                if (typeof data_info.sex != undefined) {
+                    $form.find("input[name='sex'][value='"+data_info.sex+"']").prop('checked', true);
                 }
 
                 if (typeof data_info.status != undefined) {
@@ -444,6 +460,15 @@
 
             if ($target.find("input[name='user_address']").val() != '') {
                 form_data['user_address'] = $target.find("input[name='user_address']").val();
+            }
+
+            if ($target.find("input[name='sex']:checked").length < 1) {
+                $target.find("input[name='sex']").parent('label').siblings('small').addClass('am-text-danger').text('性别不能为空');
+                return false;
+            }
+            else {
+                $target.find("input[name='sex']").parent('label').siblings('small').removeClass('am-text-danger').text('');
+                form_data['sex'] = $target.find("input[name='sex']:checked").val();
             }
 
             if ($target.find("input[name='status']:checked").length > 0) {

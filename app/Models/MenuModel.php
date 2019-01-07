@@ -14,7 +14,7 @@ class MenuModel extends BaseModel
             $_db = (is_array($data['id'])) ? $_db->whereIn('id', $data['id']) : $_db->where('id', $data['id']);
         }
         isset($data['status']) && $_db = $_db->where('status', $data['status']);
-        isset($data['sub_page']) && $_db = $_db->where('sub_page', $data['sub_page']);
+        isset($data['type']) && $_db = (is_array($data['type'])) ? $_db->whereIn('type', $data['type']) : $_db->where('type', $data['type']);
 
         if (!empty($data['order'])) {
             isset($data['orderby']) || $data['orderby'] = 'asc';

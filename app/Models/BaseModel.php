@@ -51,6 +51,24 @@ class BaseModel
     public function getRow($data)
     {
         $db = $this->table();
+
+        $orderby = array();
+        if (isset($data['order'])) {
+            isset($data['orderby']) || $data['orderby'] = 'asc';
+
+            if (is_array($data['order'])) {
+                foreach ($data['order'] as $key => $val) {
+                    $orderby[$val] = is_array($data['orderby']) ? $data['orderby'][$key] : $data['orderby'];
+                }
+            }
+            else {
+                $orderby[$data['order']] = $data['orderby'];
+            }
+
+            unset($data['order']);
+            unset($data['orderby']);
+        }
+
         $data = $this->checkData($data);
 
         foreach ($data as $key => $val) {
@@ -62,7 +80,13 @@ class BaseModel
             }
         }
 
-        return $db->first();
+        if (!empty($orderby)) {
+            foreach ($orderby as $key => $val) {
+                $db = $db->orderBy($key, $val);
+            }
+        }
+
+        return $this->toArray($db->first());
     }
 
     // 读取所有记录

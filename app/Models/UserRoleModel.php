@@ -32,4 +32,19 @@ class UserRoleModel extends BaseModel
 
         return $this->toArray($_db->get());
     }
+
+    // 联表角色记录
+    public function getJoinRole($data)
+    {
+        $_db = $this->table($this->_table.' as t0');
+        $_db->leftJoin('sys_role as t1', 't0.role_id', '=', 't1.id');
+
+        !empty($data['fields']) && $_db = $_db->select($data['fields']);
+
+        !empty($data['id']) && $_db = $_db->where('t0.id', $data['id']);
+        !empty($data['user_id']) && $_db = $_db->where('t0.user_id', $data['user_id']);
+        !empty($data['role_id']) && $_db = $_db->where('t0.role_id', $data['role_id']);
+
+        return $this->toArray($_db->get());
+    }
 }

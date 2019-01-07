@@ -20,6 +20,32 @@ class InfoController extends Controller
         ));
     }
 
+    // 修改个人信息
+    public function update()
+    {
+        $params = $this->request->all();
+
+        if (empty($params) || empty($params['user_name']) || empty($params['user_phone']) || empty($params['sex'])) {
+            echo json_encode(['status'=>0, 'info'=>'参数有误']);
+            return;
+        }
+
+        $data = array(
+            'username' => $params['user_name'],
+            'phone' => $params['user_phone'],
+            'email' => empty($params['email']) ? '' : $params['email'],
+            'sex' => $params['sex'],
+            'address' => empty($params['address']) ? '' : $params['address']
+        );
+
+        $user_info = \Session::get('user_info');
+        $uid = $user_info['uid'];
+
+        $user_model = new UserModel;
+        $user_model->update($uid, $data);
+        echo json_encode(['status'=>1, 'info'=>'success']);
+    }
+
     // 修改密码
     public function passwd()
     {
